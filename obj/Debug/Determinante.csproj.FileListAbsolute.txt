@@ -1,0 +1,7 @@
+C:\Users\Mato\source\repos\Determinante\Determinante\obj\Debug\Determinante.csprojAssemblyReference.cache
+C:\Users\Mato\source\repos\Determinante\Determinante\obj\Debug\Determinante.csproj.CoreCompileInputs.cache
+C:\Users\Mato\source\repos\Determinante\Determinante\bin\Debug\Determinante.exe.config
+C:\Users\Mato\source\repos\Determinante\Determinante\bin\Debug\Determinante.exe
+C:\Users\Mato\source\repos\Determinante\Determinante\bin\Debug\Determinante.pdb
+C:\Users\Mato\source\repos\Determinante\Determinante\obj\Debug\Determinante.exe
+C:\Users\Mato\source\repos\Determinante\Determinante\obj\Debug\Determinante.pdb
