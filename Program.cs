@@ -9,75 +9,66 @@ namespace Determinante
     class Program
     {
         static int Zbrajanje;
-        static void Skracivanje(int[,] Polje,int n)
+        static void Skracivanje(int[,] Polje, int n, int faktor)
         {
-            int Pomagac;
-            int[] Dodatak = new int[n];
-            int[,,] Determinanta = new int[n+4, n+4, n+4];
-            for(int i = 0; i < n; i++)
+            int[,] SkracenoPolje = new int[n, n];
+            if (n == 2)
             {
-                for (int j = 0; j < n; j++)
-                {
-                    Determinanta[0, i, j] = Polje[i, j];
-                }
-            }
-            for (int z = 0; z < n; z++)
-            {
-                for (int i = 1; i < n; i++)
-                {
-                    for (int j = 0; j < n - 1; j++)
-                    {
-                        Pomagac = z;
-                        if (Pomagac == n && i == 3) Pomagac++; else if (Pomagac == n && i == 4) Pomagac += 2;
-                        Determinanta[z, i, j] = Determinanta[0, i, j + Pomagac];
-                        Dodatak[z] = Convert.ToInt32(Math.Pow(-1, i + 2)) * Convert.ToInt32(Math.Pow(Determinanta[z, i, j],j));
-                    }
-                }
-            }
-            if (n == 3)
-            {
-                for(int i = 0; i < 3; i++)
-                {
-                    Zbrajanje += Dodatak[i] * (Determinanta[i, 0, 0] * Determinanta[i, 1, 1] - Determinanta[i, 0, 1] * Determinanta[i, 1, 0]);
-                }
+                Zbrajanje += (faktor * (Polje[0, 0] * Polje[1, 1] - Polje[0, 1] * Polje[1, 0]));
             }
             else
             {
-                for (int z = 0; z < n; z++)
+                for (int i = 0; i < n; i++)
                 {
-                    for (int i = 0; i < n; i++)
+                    SkracenoPolje = Polje;
+                    for (int y = 0; y < n - 1; y++)
                     {
-                        for (int j = 0; j < n; j++)
+                        for (int x = 0; x < n; x++)
                         {
-                            Polje[i, j] = Determinanta[z, i, j];
+                            SkracenoPolje[y, x] = SkracenoPolje[y + 1, x];
                         }
                     }
-                    n--;
-                    Skracivanje(Polje, n);
+                    for (int y = 0; y < n; y++)
+                    {
+                        for (int x = 0; x < n - 1; x++)
+                        {
+                            if (i != 1 || i != 0)
+                            {
+                                SkracenoPolje[y, x] = SkracenoPolje[y + i + 1, x];
+                            }
+                            else
+                                SkracenoPolje[y, x] = SkracenoPolje[y + i, x];
+                        }
+                    }
+                    faktor = Convert.ToInt32(Math.Pow(-1, i + 1)) * Polje[0, i];
+                    Skracivanje(SkracenoPolje, n - 1, faktor);
                 }
             }
         }
         static void Main(string[] args)
         {
-            int n;
+            int n, faktor = 1;
             Console.Write("Upišite broj redova:");
             n = Convert.ToInt32(Console.ReadLine());
             int[,] Polje = new int[n, n];
-            for (int i = 0; n > i; i++)
+            for (int y = 0; n > y; y++)
             {
-                for (int j = 0; n > j; j++)
+                for (int x = 0; n > x; x++)
                 {
-                    Console.Write("Upišite broj " + i + " " + j + "=");
-                    Polje[i, j] = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Upišite broj " + y + " " + x + "=");
+                    Polje[y, x] = Convert.ToInt32(Console.ReadLine());
                 }
             }
-            if (n == 2)
+            for (int y = 0; n > y; y++)
             {
-                Console.WriteLine(Polje[0, 0] * Polje[1, 1] - Polje[0, 1] * Polje[1, 0]);
-            } else { 
-            Skracivanje(Polje, n);
-            Console.WriteLine(Zbrajanje);
+                for (int x = 0; n > x; x++)
+                {
+                    Console.Write(Polje[y, x] + " ");
+                }
+                Console.WriteLine();
             }
+            Skracivanje(Polje, n, faktor);
+            Console.WriteLine("Rezultat = " + Zbrajanje);
             Console.ReadKey();
         }
     }
