@@ -20,7 +20,13 @@ namespace Determinante
             {
                 for (int i = 0; i < n; i++)
                 {
-                    SkracenoPolje = Polje;
+                    for (int y = 0; n > y; y++)
+                    {
+                        for (int x = 0; n > x; x++)
+                        {
+                            SkracenoPolje[y, x] = Polje[y, x];
+                        }
+                    }
                     for (int y = 0; y < n - 1; y++)
                     {
                         for (int x = 0; x < n; x++)
@@ -28,16 +34,22 @@ namespace Determinante
                             SkracenoPolje[y, x] = SkracenoPolje[y + 1, x];
                         }
                     }
-                    //problem
-                    for (int y = 0; y < n - i - 1; y++)
+                    for (int y = 0; y < n - 1; y++)
                     {
-                        for (int x = 0; x < n - 1; x++)
+                        for (int x = 0; x < n - i - 1; x++)
                         {
-                            if(i==0) SkracenoPolje[y, x] = SkracenoPolje[y + i+1, x];else
-                            SkracenoPolje[y, x] = SkracenoPolje[y + i, x];
+                                SkracenoPolje[y, x] = SkracenoPolje[y , x + i];
                         }
                     }
-                    //problem
+                    Console.WriteLine();
+                    for (int y = 0; n - 1 > y; y++)
+                    {
+                        for (int x = 0; n - 1 > x; x++)
+                        {
+                            Console.Write(SkracenoPolje[y, x] + " ");
+                        }
+                        Console.WriteLine();
+                    }
                     faktor = Convert.ToInt32(Math.Pow(-1, i + 1)) * Polje[0, i];
                     Skracivanje(SkracenoPolje, n - 1, faktor);
                 }
