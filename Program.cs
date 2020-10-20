@@ -11,6 +11,8 @@ namespace Determinante
         static int Zbrajanje;
         static void Skracivanje(int[,] Polje, int n, int faktor)
         {
+            bool provjera = false;
+            int brojac = 0;
             int[,] SkracenoPolje = new int[n, n];
             if (n == 2)
             {
@@ -28,20 +30,18 @@ namespace Determinante
                             SkracenoPolje[y, x] = SkracenoPolje[y + 1, x];
                         }
                     }
-                    for (int y = 0; y < n; y++)
+                    for (int y = 0; y < n - 1; y++)
                     {
                         for (int x = 0; x < n - 1; x++)
                         {
-                            if (i != 1 || i != 0)
-                            {
-                                SkracenoPolje[y, x] = SkracenoPolje[y + i + 1, x];
-                            }
-                            else
-                                SkracenoPolje[y, x] = SkracenoPolje[y + i, x];
+                            if (y+i == n && provjera == false) { brojac = y + i; provjera = true; }
+                            SkracenoPolje[y, x] = SkracenoPolje[y + i - brojac, x];
                         }
                     }
                     faktor = Convert.ToInt32(Math.Pow(-1, i + 1)) * Polje[0, i];
                     Skracivanje(SkracenoPolje, n - 1, faktor);
+                    provjera = false;
+                    brojac = 0;
                 }
             }
         }
